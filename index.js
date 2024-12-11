@@ -113,6 +113,21 @@ app.put("/api/users/:id", userValidationMiddlewares, (req, res) => {
   );
 });
 
+app.get(
+  "/superMiddleware",
+  (req, res, next) => {
+    if (req) {
+      console.log("Hello middleware");
+      return next();
+    } else {
+      return res.redirect("/");
+    }
+  },
+  (req, res, next) => {
+    res.send("Hello world");
+  }
+);
+
 app.listen(process.env.PORT, (err) => {
   if (err) {
     throw new Error("Something bad happened...");
